@@ -1,9 +1,10 @@
-import logger from '@percy/logger';
 import percy from './percy-info.js';
 import request from './request.js';
 
 // Create a socket to connect to a remote logger
 async function connectRemoteLogger() {
+  let { default: logger } = await import('@percy/logger');
+
   await logger.remote(async () => {
     let url = percy.address.replace('http', 'ws');
 
@@ -21,6 +22,8 @@ async function connectRemoteLogger() {
 
 // Check if Percy is enabled using the healthcheck endpoint
 export async function isPercyEnabled() {
+  let { default: logger } = await import('@percy/logger');
+
   if (percy.enabled == null) {
     let log = logger('utils');
     let error;

@@ -10,7 +10,8 @@ module.exports = {
       ))),
     presets: [
       ['@babel/env', {
-        modules: false,
+        modules: pkg.type !== 'module' && 'auto',
+        exclude: ["proposal-dynamic-import"],
         targets: {
           node: '14'
         }
